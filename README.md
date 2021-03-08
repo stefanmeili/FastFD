@@ -9,6 +9,10 @@ A finite differences simulation library
  * Partial model updates minimize overheads in iterative solutions.
 
 ## Usage
+### Problem Description
+2D thermal conduction through the three materials as depicted below.
+![Problem Sketch](./docs/readme/problem_sketch.svg "Problem Sketch")
+
 ### Import and Initialize
 Import FastFD and select either scipy or cupy sparse libraries.
 ```python
@@ -32,7 +36,7 @@ T_b = ffd.Scalar('T_b', [x_b, y], accuracy = 4)
 T_c = ffd.Scalar('T_c', [x_c, y], accuracy = 4)
 
 # Define the model
-# Scalar names must be unique within an FNModel
+# Scalar names must be unique within an FDModel
 model = ffd.FDModel([T_a, T_b, T_c])
 ```
 ### Define Model Governing Equations and Boundary Conditions
@@ -141,3 +145,6 @@ def iteration(T_cold):
     
     return model.solve()
 ```
+
+## Solution Coordinates
+Coordinates supplied for each axis are available from a model by at `FDModel.coords`
