@@ -20,8 +20,8 @@ sparse_lib = SparseLib()
 
 from ._modelmatrix import ModelMatrix
 from ._discretizedscalar import DiscretizedScalar
-from ._axis import Axis
+from ._axis import LinearAxis
 from ._scalar import Scalar
 from ._fdmodel import FDModel
 
-__all__ = ['sparse_lib', 'Axis', 'Scalar', 'FDModel', 'DiscretizedScalar', 'ModelMatrix']
+__all__ = ['sparse_lib', 'LinearAxis', 'Scalar', 'FDModel', 'DiscretizedScalar', 'ModelMatrix']

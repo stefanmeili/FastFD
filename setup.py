@@ -3,7 +3,7 @@ FastFD - GPU Accelerated Finite Differences Simulation Library
 ==============================================================
 
 Copyright 2021 - Stefan Meili
-Released under a standard MIT License.
+MIT License.
 '''
 
 
@@ -18,7 +18,7 @@ setuptools.setup(
     version = "0.1",
     author = "Stefan Meili",
     author_email = "stefan.meili@gmail.com",
-    description = "A Python library for building simple and efficient finite difference simulations",
+    description = "A finite difference simulation library",
     long_description = long_description,
     long_description_content_type = "text/markdown",
     url = "https://github.com/stefanmeili/fastfd",

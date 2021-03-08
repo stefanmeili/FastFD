@@ -10,7 +10,7 @@ MIT License
 from . import sparse_lib
 
 
-class Axis:
+class LinearAxis:
     '''
     Defines one axis that a Scalar is discretized over.
     
@@ -23,11 +23,11 @@ class Axis:
     # TODO - Accept a 1D numpy (or cupy) array and allow non-uniform grids?
     # TODO - Allow polar coordinates
     
-    def __init__(self, name, arg):
+    def __init__(self, name, **kwargs):
         self.name = name
         
-        if isinstance(arg, tuple):
-            start, stop, num = arg
+        if all([arg in kwargs for arg in ['start', 'stop', 'num']]):
+            start, stop, num = kwargs['start'], kwargs['stop'], kwargs['num']
             self.coords = sparse_lib.np.linspace(start, stop, num)
             self.delta = abs(stop - start) / (num - 1)
             
