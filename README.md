@@ -47,6 +47,7 @@ k_b = 0.5
 k_c = 1
 
 # Set model governing equations (thermal diffusion)
+# Equations are specied as a dictionary: {'Key', (coefficient matrix, constraint vector)}
 model.update_equations({
     'Cond A': (k_a * (T_a.d('x', 2) + T_a.d('y', 2)),
                0),
@@ -57,6 +58,9 @@ model.update_equations({
 })
 
 # Set model boundary conditions
+# Boundary conditions are specied as a dictionary: {'Key', (mask, coefficient matrix, constraint vector)}
+# Masks must be Scalar identites. Slices can be used selectively apply boundary conditions. Each Mask and coefficient
+# matrix must have the same shape.  
 model.update_bocos({
     'Ta(x=0) adiabatic': (T_a.i[0, :], T_a.d('x')[0, :], 0),
     'Ta(y=-1) adiabatic': (T_a.i[:, -1], T_a.d('y')[:, -1], 0),
