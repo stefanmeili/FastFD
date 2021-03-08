@@ -46,25 +46,21 @@ k_a = 3
 k_b = 0.5
 k_c = 1
 
-'''
-Set model governing equations (thermal diffusion)
-Equations are specied as a dictionary:
-    {'Key', (coefficient matrix, constraint vector)}
-'''
+# Set model governing equations (thermal diffusion)
+# Equations are specied as a dictionary:
+#     {'Key', (coefficient matrix, constraint vector)}
 model.update_equations({
     'Cond A': (k_a * (T_a.d('x', 2) + T_a.d('y', 2)), 0),
     'Cond B': (k_b * (T_b.d('x', 2) + T_b.d('y', 2)), 0),
     'Cond C': (k_c * (T_c.d('x', 2) + T_c.d('y', 2)), 0),
 })
 
-'''
-Set model boundary conditions
-Boundary conditions are specied as a dictionary with format:
-    {'Key', (mask, coefficient matrix, constraint vector)}
+# Set model boundary conditions
+# Boundary conditions are specied as a dictionary with format:
+#     {'Key', (mask, coefficient matrix, constraint vector)}
     
-Masks must be Scalar identites. Slices can be used selectively apply boundary conditions. Each Mask and coefficient
-matrix must have the same shape.
-'''
+# Masks must be Scalar identites. Slices can be used selectively apply boundary conditions. Each mask
+# and coefficient matrix must have the same shape.
 model.update_bocos({
     'Ta(x=0) adiabatic': (T_a.i[0, :], T_a.d('x')[0, :], 0),
     'Ta(y=-1) adiabatic': (T_a.i[:, -1], T_a.d('y')[:, -1], 0),
@@ -119,7 +115,8 @@ Image = hv.Image(
     bounds = (0, 0, 1.2, 1)
 ).opts(
     cmap = 'CMRmap',
-    colorbar = True)
+    colorbar = True
+)
 
 hv.Overlay([
     Image,
@@ -155,4 +152,4 @@ def iteration(T_cold):
 ```
 
 ## Solution Coordinates
-Coordinates supplied for each axis are available from a model by at `FDModel.coords`
+Meshgrid coordinates matching the solution format are available using `FDModel.coords`
