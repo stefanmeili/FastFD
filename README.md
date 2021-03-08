@@ -59,8 +59,8 @@ model.update_equations({
 # Boundary conditions are specied as a dictionary with format:
 #     {'Key', (mask, coefficient matrix, constraint vector)}
     
-# Masks must be Scalar identites. Slices can be used selectively apply boundary conditions. Each mask
-# and coefficient matrix must have the same shape.
+# Masks must be Scalar identites. Slices can be used selectively apply boundary conditions. Each
+# mask and coefficient matrix must have the same shape.
 model.update_bocos({
     'Ta(x=0) adiabatic': (T_a.i[0, :], T_a.d('x')[0, :], 0),
     'Ta(y=-1) adiabatic': (T_a.i[:, -1], T_a.d('y')[:, -1], 0),
