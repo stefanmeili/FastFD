@@ -2,7 +2,7 @@
 FastFD - GPU Accelerated Finite Differences Simulation Library
 ==============================================================
 
-Copyright 2021 - Stefan Meili
+Copyright (c) 2020-2021 Stefan Meili
 MIT License
 '''
 
@@ -16,7 +16,7 @@ from . import sparse_lib
 from . import DiscretizedScalar
 
 
-@lru_cache()
+#@lru_cache()
 def gen_coeff_matrix(shape, dim_idx, derivative, accuracy):
     '''
     Called by Scalar.d() to build a coefficient matrix for a DiscretizedScalar.

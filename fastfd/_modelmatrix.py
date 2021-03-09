@@ -2,7 +2,7 @@
 FastFD - GPU Accelerated Finite Differences Simulation Library
 ==============================================================
 
-Copyright 2021 - Stefan Meili
+Copyright (c) 2020-2021 Stefan Meili
 MIT License
 '''
 
@@ -41,7 +41,7 @@ class ModelMatrix:
                 raise ValueError(f"ndarray with shape {B.shape} is not compatible with ModelMatrix with shape {self.matrix.shape}")
             
         else:
-            raise NotImplementedError(f"{type(self)} cannot be multiplied to {type(B)}")
+            return NotImplemented
     
     def __rmul__(self, B):
         return self * B
@@ -63,10 +63,10 @@ class ModelMatrix:
                 
                 
         else:
-            raise NotImplementedError(f"{type(self)} cannot be divided by {type(B)}")
+            return NotImplemented
     
     def __rtruediv__(self, B):
-        raise NotImplementedError(f"{type(self)} cannot be divided by {type(B)}")
+        return NotImplemented
         
     
     #addition
@@ -75,8 +75,7 @@ class ModelMatrix:
             matrix = self.matrix + B.matrix
             return ModelMatrix(matrix)
         else:
-            raise NotImplementedError(f"{type(self)} cannot be added to {type(B)}")
-    
+            return NotImplemented
     
     #subtraction
     def __sub__(self, B):
@@ -84,7 +83,7 @@ class ModelMatrix:
             matrix = self.matrix - B.matrix
             return ModelMatrix(matrix)
         else:
-            raise NotImplementedError(f"{type(self)} cannot be added to {type(B)}")
+            return NotImplemented
             
     
     # negation

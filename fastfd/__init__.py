@@ -2,7 +2,7 @@
 FastFD - GPU Accelerated Finite Differences Simulation Library
 ==============================================================
 
-Copyright 2021 - Stefan Meili
+Copyright (c) 2020-2021 Stefan Meili
 MIT License
 
 

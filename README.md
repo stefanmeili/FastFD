@@ -1,5 +1,7 @@
 # FastFD
-A finite differences simulation library
+A finite differences simulation library.
+
+This library is intended to allow simple PDE based engineering simulations to be built easily.
 
 ## Features
  * Quickly build finite difference simulations with an arbitrary number of domains, scalars, dimensions and boundary conditions.
@@ -39,6 +41,7 @@ T_c = ffd.Scalar('T_c', [x_c, y], accuracy = 4)
 # Scalar names must be unique within an FDModel
 model = ffd.FDModel([T_a, T_b, T_c])
 ```
+
 ### Define Model Governing Equations and Boundary Conditions
 ```python
 # Thermal Conductivity of domains a, b, and c

@@ -2,7 +2,7 @@
 FastFD - GPU Accelerated Finite Differences Simulation Library
 ==============================================================
 
-Copyright 2021 - Stefan Meili
+Copyright (c) 2020-2021 Stefan Meili
 MIT License
 '''
 
@@ -166,7 +166,7 @@ class FDModel:
             
             # Check and assign constraints to boco_const
             if isinstance(const, sparse_lib.np.ndarray):
-                new_const = const
+                new_const = const.ravel() if const.ndim > 1 else const
                 self.boco_constraints_applied = False
                 const_applied = False
             

@@ -2,7 +2,7 @@
 FastFD - GPU Accelerated Finite Differences Simulation Library
 ==============================================================
 
-Copyright 2021 - Stefan Meili
+Copyright (c) 2020-2021 Stefan Meili
 MIT License
 '''
 
@@ -77,7 +77,7 @@ class DiscretizedScalar:
                 raise NotImplementedError(f"DiscretizedScalars can only multiplied if they share the same Scalars. Got: '{self.scalar.name}' and '{B.scalar.name}'")
                 
         else:
-            raise NotImplementedError(f"{type(self)} '{self.scalar.name}' cannot be multiplied by {type(B)}")
+            return NotImplemented
         
     
     def __rmul__(self, B):
@@ -99,11 +99,11 @@ class DiscretizedScalar:
         
         else:
             # inverse of a discritized scaler matrix is singular. Can't see use case.
-            raise NotImplementedError(f"{type(self)} '{self.scalar.name}' cannot be divided by {type(B)}")
+            return NotImplemented
     
     
     def __rtruediv__(self, B):
-        raise NotImplementedError(f"{type(B)} cannot be divided by {type(self)} '{self.scalar.name}'")
+        return NotImplemented
     
     # addition
     def __add__(self, B):
@@ -118,7 +118,7 @@ class DiscretizedScalar:
             return self.to_model_matrix() + B
         
         else:
-            raise NotImplementedError(f"{type(self)} '{self.scalar.name}' cannot be added to {type(B)}")
+            return NotImplemented
     
     
     def __radd__(self, B):
@@ -126,7 +126,7 @@ class DiscretizedScalar:
             return B + self.to_model_matrix()
         
         else:
-            raise NotImplementedError(f"{type(B)} cannot be added to {type(self)} '{self.scalar.name}'")
+            return NotImplemented
         
     
     # subtraction
@@ -142,7 +142,7 @@ class DiscretizedScalar:
             return self.to_model_matrix() - B
         
         else:
-            raise NotImplementedError(f"{type(B)} cannot be subtracted from {type(self)} '{self.scalar.name}'")
+            return NotImplemented
     
     
     def __rsub__(self, B):
@@ -150,7 +150,7 @@ class DiscretizedScalar:
             return B - self.to_model_matrix()
         
         else:
-            raise NotImplementedError(f"{type(B)} cannot be added to {type(self)} '{self.scalar.name}'")
+            return NotImplemented
             
     
     # negation
