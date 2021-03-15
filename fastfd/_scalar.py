@@ -16,6 +16,32 @@ from . import sparse_lib
 from . import DiscretizedScalar
 
 
+def gen_coefficients(derivative, accuracy):
+    # Generate stencil offsets
+    n_forward = derivative + accuracy # Number of terms required for forward difference
+    
+    offsets = [sparse_lib.np.arange(-i, n_forward-i, dtype = int) for i in range(n_forward)] # Simple offsets
+    
+    c_accuracy = max(accuracy // 2 * 2, 2) #round accuracy down to the nearest even number
+    n_central = max((derivative - 1) // 2 * 2 + 1 + c_accuracy, 3) #round derivative down to the nearest odd, add accuracy
+    
+    if n_central < n_forward:
+        offsets = offsets[:n_central//2] \
+            + [sparse_lib.np.arange(n_central, dtype = int) - n_central//2] \
+            + offsets[-n_central//2 + 1:]
+            
+    # Solve for Finite Difference coefficients per:
+    # https://en.wikipedia.org/wiki/Finite_difference_coefficient#Arbitrary_stencil_points
+    coefficients = []
+    for off in offsets:
+        M = sparse_lib.np.power(off, sparse_lib.np.arange(len(off), dtype = int).reshape(-1,1))
+        C = sparse_lib.np.zeros(len(off))
+        C[derivative] = math.factorial(derivative)
+        coefficients.append(sparse_lib.np.linalg.solve(M, C))
+        
+    return coefficients, offsets, n_forward
+    
+
 #@lru_cache()
 def gen_coeff_matrix(shape, dim_idx, derivative, accuracy):
     '''
@@ -40,6 +66,7 @@ def gen_coeff_matrix(shape, dim_idx, derivative, accuracy):
     
     '''
     
+    
     if dim_idx < 0:
         dim_idx = len(shape) + dim_idx
     if dim_idx < 0 or dim_idx >= len(shape):
@@ -47,32 +74,12 @@ def gen_coeff_matrix(shape, dim_idx, derivative, accuracy):
         
     n_rows = shape[dim_idx]
     
-    # Generate stencil offsets
-    n_forward = derivative + accuracy # Number of terms required for forward difference
-    n_terms = min(n_rows, n_forward) # Number of terms available in matrix. Covers very low resolution grids.
-    offsets = [sparse_lib.np.arange(-i, n_terms-i, dtype = int) for i in range(n_terms)] # Offsets
+    coefficients, offsets, n_forward = gen_coefficients(derivative, accuracy)
     
+    if n_rows < n_forward:
+        raise ValueError('Grid resolution is less than required')
     
-    if n_forward <= n_rows and derivative > 1:
-        n_central = (n_forward - 1) // 2 #Number of terms in a central difference stencil
-        offsets_central = sparse_lib.np.arange(-n_central, n_central + 1, dtype = int)
-        # If it's an even derivative, replace central two rows with central FD
-        if derivative%2 == 0:
-            offsets = offsets[:n_central] + [offsets_central] + offsets[-n_central:]
         
-        # If it's an odd derivative, insert central FD with accuracy-1
-        else:
-            offsets = offsets[:n_central+1] + [offsets_central] + offsets[n_central+1:]
-    
-    # Solve for Finite Difference coefficients per:
-    # https://en.wikipedia.org/wiki/Finite_difference_coefficient#Arbitrary_stencil_points
-    coefficients = []
-    for off in offsets:
-        M = sparse_lib.np.power(off, sparse_lib.np.arange(len(off), dtype = int).reshape(-1,1))
-        C = sparse_lib.np.zeros(len(off))
-        C[derivative] = math.factorial(derivative)
-        coefficients.append(sparse_lib.np.linalg.solve(M, C))
-    
     # Build a 1D finite difference matrix by expanding coefficients
     if n_rows > len(coefficients):
         central_idx = len(coefficients)//2 # index of central FD approximation
@@ -138,6 +145,8 @@ class Scalar:
         
         self.coords = sparse_lib.np.meshgrid(*tuple([a.coords for a in self.axes.values()]), indexing = 'ij')
         self.coords = {axis:coord for axis, coord in zip(self.axes.keys(), self.coords)}
+        
+        self.timestep = None
     
     def _check_model(self):
         if self.model is None:
@@ -194,3 +203,52 @@ class Scalar:
         coeff_matrix /= self.axes[axis_name].delta**derivative
         
         return DiscretizedScalar(coeff_matrix, self)
+        
+        
+    def dt(self, dt_type, derivative = 1, accuracy = None):
+        '''
+        Returns a DiscretizedScalar coefficient matrix that approximates the derivative of the Scalar along the selected
+        Axis.
+        
+        Inputs:
+            dt_type = 'string'
+                Must be either 'scalar' or 'constraint' depending on if it's used in the coefficient matrix or constraint
+                vector.
+                
+            derivative = int
+                Derivative being approximated.
+                
+            accuracy = int
+                Order of approximation accuracy.
+        '''
+        
+        #TODO Adjust coefficients for variable grid step size?
+        #TODO Adjust coefficients to allow polar or spherical coordinates?
+        
+        self._check_model()
+            
+        if accuracy is None:
+            accuracy = self.accuracy
+            
+        if accuracy < 1:
+            raise ValueError('Derivative approximation accuracy must be at least 1')
+            
+        if derivative < 1:
+            raise ValueError("Derivative must be at least 1. Were you looking for 'Scalar.i' instead?") 
+        
+        if self.timestep is None:
+            raise ValueError('Timestep is not set. Create model with FDModel(scalars = [?], timestep = ?)')
+        
+        coefficients, *_ = gen_coefficients(derivative, accuracy)
+        coefficients = coefficients[-1] / self.timestep**derivative
+        
+        
+        if dt_type == 'scalar':
+            return self.i * coefficients[-1]
+        elif dt_type == 'constraint':
+            return sparse_lib.sparse.kron(sparse_lib.sparse.identity(self.size), coefficients[:-1], format = 'csr')
+        elif dt_type == 'debug':
+            return sparse_lib.sparse.kron(sparse_lib.sparse.identity(self.size), coefficients, format = 'csr')
+        else:
+            raise ValueError(f"dt_type must be either 'scalar' or 'constraint' for {self.name}. Got {dt_type}.")
+        

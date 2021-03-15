@@ -13,7 +13,7 @@ from . import ModelMatrix
 from . import DiscretizedScalar
 
 class FDModel:
-    def __init__(self, scalars):
+    def __init__(self, scalars, timestep = None):
         '''
         Builds and solves a finite difference model.
         
@@ -31,10 +31,13 @@ class FDModel:
                 
         self.shape = tuple(s.size for s in self.scalars.values())
         self.size = sum(self.shape)
+        self.timestep = timestep
         
         # Register Model pointer in each Scalar
         for s in self.scalars.values():
             s.model = self
+            if self.timestep is not None:
+                s.timestep = self.timestep
         
         self.coords = {key:scalar.coords for key, scalar in self.scalars.items()} 
         
