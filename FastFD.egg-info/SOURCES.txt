@@ -1,0 +1,15 @@
+README.md
+pyproject.toml
+setup.cfg
+setup.py
+FastFD.egg-info/PKG-INFO
+FastFD.egg-info/SOURCES.txt
+FastFD.egg-info/dependency_links.txt
+FastFD.egg-info/top_level.txt
+fastfd/__init__.py
+fastfd/_axis.py
+fastfd/_discretizedscalar.py
+fastfd/_fdmodel.py
+fastfd/_modelmatrix.py
+fastfd/_scalar.py
+fastfd/_utils.py
