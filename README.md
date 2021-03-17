@@ -1,7 +1,7 @@
 # FastFD
 A finite differences simulation library.
 
-This library is intended to allow simple PDE based engineering simulations to be built easily.
+This package lets you quickly build simple numerical simulations.
 
 ## Features
  * Quickly build finite difference simulations with an arbitrary number of domains, scalars, dimensions and boundary conditions.
