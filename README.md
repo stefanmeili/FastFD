@@ -9,6 +9,7 @@ This library is intended to allow simple PDE based engineering simulations to be
  * Build models for CPU or GPU using Scipy or Cupy sparse libraries.
  * Arbitrary derivative order and approximation accuracy.
  * Partial model updates minimize overheads in iterative solutions.
+ * Implicit transient simulation 
 
 ## Usage
 ### Problem Description
@@ -131,12 +132,7 @@ hv.Overlay([
     show_legend = False
 )
 ```
-![Model Solution](./docs/readme/model_solution.png "Example Problem Solution")
-
-## GPU
-FastFD can be set to use the Cupyx sparse libraries. The current version of Cupy (8.5) only supports a least squares
-solver ('lsqr') which is much slower than the default 'spsolve'. Currently, 'scipy' is faster than 'cupy' on a Ryzen 9 3900X
-with an RTX 2080Ti, running on CPU is faster than GPU. However, spsolve will be implemented in the upcoming release of Cupy 9.0.
+![Model Solution](./docs/readme/model_solution.png "Example Problem Solution").
 
 ## Partial Updates
 Partial updates to the model can significantly speed up solution times on iterative problems. For example, if only one boundary
@@ -153,6 +149,11 @@ def iteration(T_cold):
     
     return model.solve()
 ```
+
+## GPU
+FastFD can be set to use the Cupyx sparse libraries. The current version of Cupy (8.5) only supports a least squares
+solver ('lsqr') which is much slower than the default 'spsolve'. Currently, 'scipy' is faster than 'cupy' on a Ryzen 9 3900X
+with an RTX 2080Ti, running on CPU is faster than GPU. However, spsolve will be implemented in the upcoming release of Cupy 9.0
 
 ## Solution Coordinates
 Meshgrid coordinates matching the solution format are available using `FDModel.coords`

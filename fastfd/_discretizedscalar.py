@@ -133,7 +133,7 @@ class DiscretizedScalar:
     def __sub__(self, B):
         if isinstance(B, DiscretizedScalar):
             if self.scalar == B.scalar:
-                matrix = self.matrix + B.matrix
+                matrix = self.matrix - B.matrix
                 return DiscretizedScalar(matrix, self.scalar)
             else:
                 return self.to_model_matrix() - B.to_model_matrix()

@@ -212,7 +212,7 @@ class Scalar:
         
         Inputs:
             dt_type = 'string'
-                Must be either 'scalar' or 'constraint' depending on if it's used in the coefficient matrix or constraint
+                Must be either 'lhs' or 'rhs' depending on if it's used in the coefficient matrix or constraint
                 vector.
                 
             derivative = int
@@ -242,10 +242,9 @@ class Scalar:
         coefficients, *_ = gen_coefficients(derivative, accuracy)
         coefficients = coefficients[-1] / self.timestep**derivative
         
-        
-        if dt_type == 'scalar':
+        if dt_type == 'lhs':
             return self.i * coefficients[-1]
-        elif dt_type == 'constraint':
+        elif dt_type == 'rhs':
             return sparse_lib.sparse.kron(sparse_lib.sparse.identity(self.size), coefficients[:-1], format = 'csr')
         elif dt_type == 'debug':
             return sparse_lib.sparse.kron(sparse_lib.sparse.identity(self.size), coefficients, format = 'csr')
