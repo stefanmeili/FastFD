@@ -17,16 +17,6 @@ This package lets you quickly build simple numerical simulations.
 
 ![Problem Sketch](./docs/readme/problem_sketch.svg "Problem Sketch")
 
-To do this, the heat equation is solved for each domain:
-
-$$
-k \left(\frac{\partial^2 T}{\partial x^2} + \frac{\partial^2 T}{\partial y^2} \right) = 0 
-$$
-
-Several boundary conditions need to be satisfied:
- * An adiabatic boundary at x=0 is defined as: $\frac{\partial T_{x=0}}{\partial x} = 0$
- * An isothermal boundary setting y=0 to 100C is defined as: $T_{y=0} = 100$
- * To connect two boundaries, temperature and flux are equal: $Ta_{x=-1} -Tb_{x=0} = 0$ and $\frac{\partial Ta_{x=-1}}{\partial x} - \frac{\partial Tb_{x=0}}{\partial x} = 0$
 
 ### Import and Initialize
 Import FastFD and select either scipy or cupy sparse libraries.
