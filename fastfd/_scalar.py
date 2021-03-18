@@ -243,11 +243,9 @@ class Scalar:
         coefficients = coefficients[-1] / self.timestep**derivative
         
         if dt_type == 'lhs':
-            return self.i * coefficients[-1]
+            return self.i * float(coefficients[-1])
         elif dt_type == 'rhs':
-            return sparse_lib.sparse.kron(sparse_lib.sparse.identity(self.size), coefficients[:-1], format = 'csr')
-        elif dt_type == 'debug':
-            return sparse_lib.sparse.kron(sparse_lib.sparse.identity(self.size), coefficients, format = 'csr')
+            return sparse_lib.sparse.kron(sparse_lib.sparse.identity(self.size), sparse_lib.sparse.csr_matrix(coefficients[:-1]), format = 'csr')
         else:
             raise ValueError(f"dt_type must be either 'scalar' or 'constraint' for {self.name}. Got {dt_type}.")
         

@@ -153,9 +153,10 @@ def iteration(T_cold):
 ```
 
 ## GPU
-FastFD can be set to use the Cupyx sparse libraries. The current version of Cupy (8.5) only supports a least squares
-solver ('lsqr') which is much slower than the default 'spsolve'. Currently, 'scipy' is faster than 'cupy' on a Ryzen 9 3900X
-with an RTX 2080Ti, running on CPU is faster than GPU. However, spsolve will be implemented in the upcoming release of Cupy 9.0
+FastFD can be set to use the Cupyx sparse libraries. However, this is currently very much a beta feature. The current
+ version of Cupy (8.5) only supports a least squares solver ('lsqr') which is much slower than the default 'spsolve'.
+ Currently, 'scipy' is faster than 'cupy' on a Ryzen 9 3900X with an RTX 2080Ti, running on CPU is faster than GPU. However,
+ spsolve will be implemented in the upcoming release of Cupy 9.0
 
 ## Solution Coordinates
 Meshgrid coordinates matching the solution format are available using `FDModel.coords`
