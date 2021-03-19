@@ -12,7 +12,6 @@ This package lets you quickly build simple numerical simulations.
  * Implicit transient simulation.
 
 ## Usage
-See example notebooks for detailed explanation.
 ```python
 # Import fastfd and select the scipy sparse library (or cupy for GPU support)
 import fastfd as ffd
@@ -53,3 +52,18 @@ result = model.solve()
 FastFD can be set to use the Cupyx sparse libraries, though support is still a little rough around the edges. The current
 version of Cupy (8.5) only supports a least squares solver ('lsqr') which is much slower than the default 'spsolve'.
 However, spsolve will be implemented in the upcoming release of Cupy 9.0.
+
+
+## Example Notebooks
+See example notebooks for a more detailed explanation of how to use.
+
+<img src="./docs/readme/heat_conduction_result.png"
+    alt="Steady state heat conduction" 
+    style="float: left; margin-right: 10px;"
+    width="291"/> <img src="./docs/readme/transient_wave_result.png"
+    alt="Transient 1D wave propagation"
+    style="float: left; margin-right: 10px;"
+    width="350"/> <img src="./docs/readme/shoreline_waves_result.png"
+    alt="Transient 2D wave propagation"
+    style="float: left; margin-right: 10px;"
+    width="250"/>
