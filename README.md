@@ -49,11 +49,6 @@ result = model.solve()
 ```
 <img src="./docs/readme/example_result.png" alt="Model Solution" width="500"/>
 
-## Partial Updates
-Partial updates to the model equations and boundary conditions can significantly speed up solution times on iterative
-problems. For example, if only one boundary condition is updated each iteration, only it needs to be passed to
-`FDModel.update_bocos()`. Further speedup is possible by passing `None` for values that are to be reused.
-
 ## GPU
 FastFD can be set to use the Cupyx sparse libraries, though support is still a little rough around the edges. The current
 version of Cupy (8.5) only supports a least squares solver ('lsqr') which is much slower than the default 'spsolve'.
