@@ -48,16 +48,6 @@ result = model.solve()
 ```
 <img src="./docs/readme/example_result.png" alt="Model Solution" width="500"/>
 
-## Examples Notebooks
-#### Heat Conduction
-<img src="./docs/readme/heat_conduction_result.png" alt="Steady state heat conduction" width="500"/>
-
-#### Transient Wave
-<img src="./docs/readme/transient_wave_result.png" alt="Transient 1D wave propagation" width="500"/>
-
-#### Shoreline Waves
-<img src="./docs/readme/shoreline_waves_result.png" alt="Transient 2D wave propagation" width="500"/>
-
 ## Partial Updates
 Partial updates to the model equations and boundary conditions can significantly speed up solution times on iterative
 problems. For example, if only one boundary condition is updated each iteration, only it needs to be passed to
