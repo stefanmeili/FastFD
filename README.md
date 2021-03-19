@@ -60,10 +60,10 @@ See example notebooks for a more detailed explanation of how to use.
 <img src="./docs/readme/heat_conduction_result.png"
     alt="Steady state heat conduction" 
     style="float: left; margin-right: 10px;"
-    width="291"/> <img src="./docs/readme/transient_wave_result.png"
+    width="265"/> <img src="./docs/readme/transient_wave_result.png"
     alt="Transient 1D wave propagation"
     style="float: left; margin-right: 10px;"
-    width="350"/> <img src="./docs/readme/shoreline_waves_result.png"
+    width="325"/> <img src="./docs/readme/shoreline_waves_result.png"
     alt="Transient 2D wave propagation"
     style="float: left; margin-right: 10px;"
-    width="250"/>
+    width="232"/>
