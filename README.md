@@ -57,7 +57,7 @@ However, spsolve will be implemented in the upcoming release of Cupy 9.0.
 
 
 ## Example Notebooks
-See example notebooks for a more detailed explanation of how to use.
+See example notebooks here: <a href="./docs/examples"> ./docs/examples </a> for a more detailed explanation of how to use.
 
 <img src="./docs/readme/heat_conduction_result.png"
     alt="Steady state heat conduction" 
