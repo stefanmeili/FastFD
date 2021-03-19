@@ -46,7 +46,9 @@ model.update_bocos({
 result = model.solve()
 
 ```
-<img src="./docs/readme/example_result.png" alt="Model Solution" width="500"/>
+<p align="center">
+    <img src="./docs/readme/example_result.png" alt="Model Solution" width="500"/>
+</p>
 
 ## GPU
 FastFD can be set to use the Cupyx sparse libraries, though support is still a little rough around the edges. The current
