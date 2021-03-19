@@ -12,7 +12,7 @@ This package lets you quickly build simple numerical simulations.
  * Implicit transient simulation.
 
 ## Usage
-See example notebooks for further explanation
+See example notebooks for detailed explanation.
 ```python
 # Import fastfd and select the scipy sparse library (or cupy for GPU support)
 import fastfd as ffd
