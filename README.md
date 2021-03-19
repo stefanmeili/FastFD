@@ -46,18 +46,17 @@ model.update_bocos({
 result = model.solve()
 
 ```
-### The Result
-![Model Solution](./docs/readme/example_result.png)
+<img src="./docs/readme/example_result.png" alt="Model Solution" width="500"/>
 
 ## Examples Notebooks
 #### Heat Conduction
-![Heat Conduction](./docs/readme/heat_conduction_result.png)
+<img src="./docs/readme/heat_conduction_result.png" alt="Steady state heat conduction" width="500"/>
 
-#### 1D Wave Propagation
-![Model Solution](./docs/readme/transient_wave_result.png)
+#### Transient Wave
+<img src="./docs/readme/transient_wave_result.png" alt="Transient 1D wave propagation" width="500"/>
 
-#### dD Wave Propagation
-![Model Solution](./docs/readme/shoreline_waves_result.png).
+#### Shoreline Waves
+<img src="./docs/readme/shoreline_waves_result.png" alt="Transient 2D wave propagation" width="500"/>
 
 ## Partial Updates
 Partial updates to the model equations and boundary conditions can significantly speed up solution times on iterative
