@@ -12,9 +12,9 @@ This package lets you quickly build simple numerical simulations.
  * Implicit transient simulation.
 
 ## Installation
-'''
+```
 pip install fastfd
-'''
+```
 
 ## Usage
 ```python
