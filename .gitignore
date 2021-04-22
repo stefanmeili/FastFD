@@ -3,3 +3,5 @@
 /FastFD.egg-info
 
 **/*.ipynb_checkpoints/
+/build
+/dist
