@@ -11,6 +11,11 @@ This package lets you quickly build simple numerical simulations.
  * Partial model updates minimize overheads in iterative solutions.
  * Implicit transient simulation.
 
+## Installation
+'''
+pip install fastfd
+'''
+
 ## Usage
 ```python
 # Import fastfd and select the scipy sparse library (or cupy for GPU support)
